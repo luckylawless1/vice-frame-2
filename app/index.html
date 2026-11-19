@@ -3,21 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
-<link rel="stylesheet" href="./style.css">
+<title>Vice Frame 2 — GTA-Style Cover Art Maker</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
-  </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+<main id="stage-wrap">
+  <canvas id="stage" width="1152" height="648"></canvas>
+  <p id="stage-hint">Click a panel to select it &middot; drag inside a panel to pan its photo &middot; scroll to zoom &middot; arrow keys nudge</p>
 </main>
-<script type="module" src="./src/main.js"></script>
+
+<aside id="panel">
+  <header>
+    <h1>VICE FRAME <span>2</span></h1>
+    <p class="sub">GTA-style cover art maker &middot; fully offline</p>
+  </header>
+
+  <section>
+    <h2>Layout</h2>
+    <div class="btn-row" id="layout-row">
+      <button type="button" data-layout="cover-star">Cover Star</button>
+      <button type="button" data-layout="collage-four">Collage Four</button>
+      <button type="button" data-layout="panel-grid">Panel Grid</button>
+      <button type="button" data-layout="crew-wide">Crew Wide</button>
+    </div>
+    <h2>Canvas size</h2>
+    <div class="btn-row" id="size-row">
+      <button type="button" data-size="square">Square</button>
+      <button type="button" data-size="portrait">Portrait</button>
+      <button type="button" data-size="landscape">Landscape</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Words</h2>
+    <label class="field">Tagline <input id="in-tagline" type="text" maxlength="60"></label>
+    <label class="field">Title <input id="in-title" type="text" maxlength="40"></label>
+    <label class="field">Caption <input id="in-caption" type="text" maxlength="70"></label>
+  </section>
+
+  <section>
+    <h2>Photos</h2>
+    <div id="thumbs"></div>
+    <label class="upload-btn">+ Add your photos
+      <input id="in-upload" type="file" accept="image/*" multiple hidden>
+    </label>
+    <p class="note">Click a photo to fill the selected panel.</p>
+  </section>
+
+  <section>
+    <h2>Selected panel</h2>
+    <label class="field">Grade
+      <select id="in-grade">
+        <option value="clean">Clean</option>
+        <option value="vice-sunset">Vice Sunset</option>
+        <option value="neon-night">Neon Night</option>
+        <option value="ink-poster">Ink Poster</option>
+      </select>
+    </label>
+    <button type="button" id="btn-grade-all" class="wide">Apply grade to all panels</button>
+    <label class="field">Zoom <input id="in-zoom" type="range" min="100" max="320" value="100"></label>
+  </section>
+
+  <section>
+    <h2>Stickers &amp; finish</h2>
+    <label class="check"><input type="checkbox" id="ck-stars"> Wanted stars</label>
+    <label class="check"><input type="checkbox" id="ck-burst"> Starburst &ldquo;NEW!&rdquo;</label>
+    <label class="check"><input type="checkbox" id="ck-sun"> Retro sun</label>
+    <label class="check"><input type="checkbox" id="ck-palm"> Palm tree</label>
+    <label class="check"><input type="checkbox" id="ck-grain"> Film grain</label>
+  </section>
+
+  <section>
+    <h2>Export PNG</h2>
+    <div class="btn-row export-row">
+      <button type="button" data-export="square">Square &middot; 1080 &times; 1080</button>
+      <button type="button" data-export="portrait">Portrait &middot; 1080 &times; 1350</button>
+      <button type="button" data-export="landscape">Landscape &middot; 1920 &times; 1080</button>
+    </div>
+  </section>
+</aside>
+
+<script type="module" src="src/main.js"></script>
 </body>
 </html>
